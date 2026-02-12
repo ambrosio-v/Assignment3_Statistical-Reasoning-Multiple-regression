@@ -9,7 +9,6 @@ editor: visual
 
 # Install packages
 
-
 # Load packages
 
 ```{r}
@@ -52,56 +51,46 @@ X -> Y
 
 # Question 1.2 Identifying forks
 
-## X <- U -> B
-## U <-A -> C
-## B <- C -> Y
+## X \<- U -\> B
+
+## U \<-A -\> C
+
+## B \<- C -\> Y
 
 # Question 1.3 Identify colliders
 
 ## U → B ← C
+
 ## C → Y ← X
 
 # Question 1.4 Modify the Dag
 
-dag {
-bb="0,0,1,1"
-A [pos="0.436,0.218"]
-B [pos="0.434,0.488"]
-C [pos="0.788,0.372"]
-U [pos="0.142,0.360"]
-V [pos="0.656,0.526"]
-X [pos="0.160,0.701"]
-Y [pos="0.794,0.691"]
-A -> C
-A -> U
-C -> B
-C -> Y
-U -> B
-U -> X
-V -> C
-V -> Y
-X -> Y
-}
+dag { bb="0,0,1,1" A \[pos="0.436,0.218"\] B \[pos="0.434,0.488"\] C \[pos="0.788,0.372"\] U \[pos="0.142,0.360"\] V \[pos="0.656,0.526"\] X \[pos="0.160,0.701"\] Y \[pos="0.794,0.691"\] A -\> C A -\> U C -\> B C -\> Y U -\> B U -\> X V -\> C V -\> Y X -\> Y }
 
 # Question 1.5 Identify paths
 
-## x-> y
-## U -> X -> Y
-## A -> U -> X -> Y
+## x-\> y
+
+## U -\> X -\> Y
+
+## A -\> U -\> X -\> Y
 
 # Question 1.6 Identify open backdoor paths
 
-## U -> X
-## C -> Y
-## V -> Y
+## U -\> X
+
+## C -\> Y
+
+## V -\> Y
 
 # Question 1.7 Identify variables to close the backdoors
 
 ## U, C, Y
 
-#  Foxes: Regression Practice informed by DAGs
+# Foxes: Regression Practice informed by DAGs
 
 Load librarys
+
 ```{r}
 # Load in the fox data
 foxes <- read.csv('https://raw.githubusercontent.com/rmcelreath/rethinking/refs/heads/master/data/foxes.csv', sep = ';')
@@ -117,10 +106,13 @@ head(foxes)
 
 # Question 2.1 Identify the fundamental relations in the fox DAG
 
-## fork; groupsize <-avgfood -> weight
-## colider; avgfood -> weight <- groupsize
-## pipe; area -> avgfood -> weight
-## pipe; avgfood->groupsize -> weight
+## fork; groupsize \<-avgfood -\> weight
+
+## colider; avgfood -\> weight \<- groupsize
+
+## pipe; area -\> avgfood -\> weight
+
+## pipe; avgfood-\>groupsize -\> weight
 
 # Total causal influence of area on weight
 
@@ -143,15 +135,16 @@ priorsims <- tibble(group = seq_len(n),
   mutate(weight = alpha + beta * area) # calculate weight from the parameters and area
 ```
 
- make a plot
+make a plot
+
 ```{r}
 ggplot(priorsims, aes(x = area, y = weight, group = group)) +
   geom_line(alpha = 1 / 10) +
   labs(x = "Standardized Area", y = "Standardized Weight")
 ```
- 
+
 # Question 2.2 Minimum fox weight
- 
+
 ## We think at minimum the fox might weight 9 kg
 
 # Question 2.3 Maximum fox wight
@@ -170,4 +163,15 @@ ggplot(priorsims, aes(x = area, y = weight, group = group)) +
   geom_hline(y=40)
 ```
 
- 
+```{r}
+mean_w <- mean(foxes$weight)
+sd_w   <- sd(foxes$weight)
+min_std <- (10 - mean_w) / sd_w
+max_std <- (14 - mean_w) / sd_w
+ggplot(priorsims, aes(x = area, y = weight, group = group)) +
+  geom_line(alpha = 1/10) +
+  geom_hline(yintercept = min_std, color = "red", linetype = "dashed") +
+  geom_hline(yintercept = max_std, color = "red", linetype = "dashed") +
+  labs(x = "Standardized Area",
+       y = "Standardized Weight")
+```
