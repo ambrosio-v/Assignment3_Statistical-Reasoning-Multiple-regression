@@ -252,6 +252,8 @@ summary(m.fox.weight)
 
 We just estimated the total impact of `avgfood` on `weight`, which includes both direct and indirect paths. Think back to your DAG elemental confounds. If we want to estimate only the direct impact of `avgfood` on `weight`, which variable should we condition upon?
 
+We want to condition on group size and area.
+
 
 --------------
 
@@ -266,6 +268,8 @@ First, let's look at the separate effect of `groupsize` in a univariate regressi
 ### Q2.9: What's your hypothesis about how group size affects fox weight?
 
 Before running the model, how do you think the number of foxes in a group `groupsize` would affect fox weight? Why?
+
+I think group size effects average food availability because they would have a greater territory they could get food from. Less individual resources more competition when they are in a bigger group. But its a trade off that they can have larger territory and more protection. 
 
 -------
 
@@ -316,11 +320,15 @@ summary(food_direct)
 
 What are the effects of `avgfood` and `groupsize` now that you have accounted for both variables?
 
+We can conclude our hypothesis, that average food is positively correlated with weight, and large groups make smaller foxes. The slope for average food was positive, meaning more food meant more weight. While the slope for group size was negative so larger groups means less weight.
+
 ---------
 
 #### Q2.10b
 
 How does this interpretation change your interpretation from the univariate regressions of each variable separately with `weight`?
+
+Initially, the older model suggested that more food meant lighter foxes but the newer model shows that to be in reverse.
 
 ----------
 
@@ -328,7 +336,7 @@ How does this interpretation change your interpretation from the univariate regr
 
 Provide a small discussion (2-4 sentences) explaining in your own words why these results turned out the way they did, in the context of the ecological system of fox territories. Include why you think that the univariate regressions may have suggested no relationship while the multiple regression suggests a different answer.
 
-
+Larger groups of foxes have more competition between each other for resources, which will lower their food availabity and weight. While more food on its own of course leads to individually heavier foxes. The model may have been misinterpreting food availability before, as fox group size has an impact on the other variables.
 --------
 
 
