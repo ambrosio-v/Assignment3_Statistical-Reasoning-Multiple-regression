@@ -185,8 +185,8 @@ The priors do not seem reasonable, as weight will not cross into negative values
 ```{r}
 n <- 1000
 priorsims <- tibble(group = seq_len(n),
-       alpha = rnorm(n, 6, 0.3), # prior for alpha
-       beta = rnorm(n, 0, 2)) %>% # prior for beta
+       alpha = rnorm(n, 6, 0.5),# prior for alpha
+       beta = rnorm(n, 0,.2)) %>% # prior for beta
   expand(nesting(group, alpha, beta), # the expand function gives us all possible combinations of the arguments
          area = seq(from = -2, to = 2, length.out = 100)) %>% # set up a range of areas
   mutate(weight = alpha + beta * area) # calculate weight from the parameters and area
