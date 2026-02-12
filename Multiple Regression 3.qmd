@@ -175,3 +175,7 @@ ggplot(priorsims, aes(x = area, y = weight, group = group)) +
   labs(x = "Standardized Area",
        y = "Standardized Weight")
 ```
+
+# Question 2.5 **Evaluate prior predictive simulation**
+
+The priors do not seem reasonable, as weight will not cross into negative values.
