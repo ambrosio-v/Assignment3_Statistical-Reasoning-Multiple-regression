@@ -200,7 +200,7 @@ food_on_area <- brm(avgfood ~ 1 + area,
                     data = fox_dat, 
                     family = gaussian,
                     # Here we set the priors that we investigated earlier
-                    prior = c(prior(normal(0, 0.2), class = Intercept),
+                    prior = c(prior(normal(6, 0.3), class = Intercept),
                               prior(normal(0, 2), class = b,),
                               prior(exponential(1), class = sigma)),
                     iter = 4000, warmup = 2000, chains = 4, cores = 4, seed = 1234,
