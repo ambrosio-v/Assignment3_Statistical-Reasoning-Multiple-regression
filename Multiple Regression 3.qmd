@@ -222,3 +222,25 @@ summary(food_on_area)
 ```
 
 # **Q2.7 Run a model for the impact of food on fox weight**
+```{r}
+# fox weight model
+m.flip.mass <- 
+  brm(data = fox_dat, # Give it fox data
+      # Choose a gaussian (normal) distribution
+      family = gaussian,
+      # Specify the model here. 
+      weight ~ 1 + avgfood,
+      # Here's where you specify parameters for executing the Markov chains
+      # We're using similar to the defaults, except we set cores to 4 so the analysis runs faster than the default of 1
+      iter = 2000, warmup = 1000, chains = 4, cores = 4,
+      # Setting the "seed" determines which random numbers will get sampled.
+      # In this case, it makes the randomness of the Markov chain runs reproducible 
+      # (so that both of us get the exact same results when running the model)
+      seed = 4,
+      # Save the fitted model object as output - helpful for reloading in the output later
+      file = "output/m.fox.weight")
+```
+
+```{r}
+summary(m.fox.weight)
+```
