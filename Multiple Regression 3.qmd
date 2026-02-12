@@ -149,11 +149,11 @@ ggplot(priorsims, aes(x = area, y = weight, group = group)) +
 
 # Question 2.3 Maximum fox wight
 
-## We think a reasonable maximum weight for a fox is 40kg
+## We think a reasonable maximum weight for a fox is 14g
 
 # Question 2.4 Modify simulation plot
 
-## min= 10kg, max = 40kg
+## min= 10kg, max = 14kg
 
 ```{r}
 ggplot(priorsims, aes(x = area, y = weight, group = group)) +
