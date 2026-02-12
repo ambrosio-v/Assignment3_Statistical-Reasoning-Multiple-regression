@@ -241,6 +241,7 @@ We should condition group size and area.
 We hypothesize that group size is positively correlated with average weight. We think that larger groups will have a larger territory and more food available to them and therefore foxes from larger groups could weight more. Less individual resources more competition when they are in a bigger group. But its a trade off that they can have larger territory and more protection.
 
 Now lets run the model
+
 ```{r}
 group_on_weight <- brm(weight ~ 1 + groupsize, 
                        data = fox_dat, 
@@ -252,11 +253,12 @@ group_on_weight <- brm(weight ~ 1 + groupsize,
                        file = "output/group_on_weight")
 ```
 
-
 ```{r}
 summary(group_on_weight)
 ```
-Let's add in groupsize to block the pipe weight->groupsize->avgfood:
+
+Let's add in groupsize to block the pipe weight-\>groupsize-\>avgfood:
+
 ```{r}
 food_direct <- brm(weight ~ 1 + avgfood + groupsize, 
                    data = fox_dat,
@@ -270,8 +272,7 @@ food_direct <- brm(weight ~ 1 + avgfood + groupsize,
 summary(food_direct)
 ```
 
-
-# Q 2.10a What are the effects of avgfood and groupsize now that you have accounted for both variables?
+# Q 2.10a What are the effects of avgfood and group size now that you have accounted for both variables?
 
 We can conclude our hypothesis, that average food is positively correlated with weight, and large groups make smaller foxes. The slope for average food was positive, meaning when food increased so did weight. While the slope for group size was negative so larger groups means less weight.
 
@@ -281,6 +282,4 @@ Initially, the older model suggested that more food meant lighter foxes but the 
 
 # Q 2.10c Provide a small discussion (2-4 sentences) explaining in your own words why these results turned out the way they did, in the context of the ecological system of fox territories. Include why you think that the univariate regressions may have suggested no relationship while the multiple regression suggests a different answer
 
-Larger groups of foxes have more competition between each other for resources, which will lower their food availabity and weight. While more food on its own of course leads to individually heavier foxes. The model may have been misinterpreting food availability before, as fox group size has an impact on the other variables.
-
-
+Larger groups of foxes have more competition between each other for resources, which will lower their food availability and weight. While more food on its own of course leads to individually heavier foxes. The model may have been misinterpreting food availability before, as fox group size has an impact on the other variables. In the context of ecological systems and fox territories, its likely that there are costs and benefits of group dynamics for foxes. The foxes in groups receive the benefit of protections and are able to secure larger territories with more resources. However they experience competition for resources by other group members within their territory. Its possible that there is a maximum territory area that can be protected and a minimum number of foxes needed to protect it to maximize avgfood for each fox.
