@@ -179,3 +179,30 @@ ggplot(priorsims, aes(x = area, y = weight, group = group)) +
 # Question 2.5 **Evaluate prior predictive simulation**
 
 The priors do not seem reasonable, as weight will not cross into negative values.
+
+# **Q2.6 Refine priors**
+
+```{r}
+n <- 1000
+priorsims <- tibble(group = seq_len(n),
+       alpha = rnorm(n, 6, 0.3), # prior for alpha
+       beta = rnorm(n, 0, 2)) %>% # prior for beta
+  expand(nesting(group, alpha, beta), # the expand function gives us all possible combinations of the arguments
+         area = seq(from = -2, to = 2, length.out = 100)) %>% # set up a range of areas
+  mutate(weight = alpha + beta * area) # calculate weight from the parameters and area
+```
+
+```{r}
+mean_w <- mean(foxes$weight)
+sd_w   <- sd(foxes$weight)
+min_std <- (10 - mean_w) / sd_w
+max_std <- (14 - mean_w) / sd_w
+ggplot(priorsims, aes(x = area, y = weight, group = group)) +
+  geom_line(alpha = 1/10) +
+  geom_hline(yintercept = min_std, color = "red", linetype = "dashed") +
+  geom_hline(yintercept = max_std, color = "red", linetype = "dashed") +
+  labs(x = "Standardized Area",
+       y = "Standardized Weight")
+```
+# **Q2.7 Run a model for the impact of food on fox weight**
+

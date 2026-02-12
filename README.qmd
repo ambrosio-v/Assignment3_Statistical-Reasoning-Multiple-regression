@@ -1,4 +1,4 @@
----
+  ---
 title: "Activity 11: Statistical reasoning 3: multiple regression and DAGs"
 subtitle: Feb. 11th, 2026, Calvin Munson
 format: gfm
